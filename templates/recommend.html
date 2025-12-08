@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        .book-card {
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .book-card:hover {
+            transform: scale(1.03);
+        }
+
+        .book-img {
+            height: 280px;           /* More height so full image fits */
+            width: 100%;
+            object-fit: contain;     /* ⭐ FULL IMAGE VISIBLE */
+            background-color: #f5f5f5;
+            padding: 12px;           /* Space around image */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Book Recommender System</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Recommend">Recommend</a>
+        </li>
+      </ul>
+
+      <span class="navbar-text">
+        - By Aditi Gupta
+      </span>
+
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-12">
+            <h1 class="mb-4" style="font-size:40px;">Recommend Books</h1>
+
+            <form action="/Recommend_Books" method="POST">
+                <input type="text" name="user_input" class="form-control" placeholder="Enter a book name" required><br>
+                <input type="submit" class="btn btn-lg btn-warning" value="Search">
+            </form>
+        </div>
+
+        <!-- Show cards if data exists -->
+        {% if data %}
+            {% for i in data %}
+                <div class="col-md-3 mt-5">
+                    <div class="card book-card shadow-sm">
+
+                        <img class="book-img" src="{{ i[2] }}" alt="Book Image">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i[0] }}</h5>
+                            <p class="card-text">{{ i[1] }}</p>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+</body>
+</html>
